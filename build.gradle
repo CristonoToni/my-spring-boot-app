@@ -1,7 +1,25 @@
+
+plugins{
+    id 'java'
+    id 'idea'
+    id 'org.springframework.boot' version '1.5.4.RELEASE'
+}
+
 group 'com.ton.myspring.boot'
 version '1.0-SNAPSHOT'
 
-apply plugin: 'java'
+// #not use below as it is gradle old style
+//buildscript{
+//    repositories{
+//        mavenCentral()
+//    }
+//    dependencies{
+//        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.7.RELEASE")
+//    }
+//}
+
+//apply plugin: 'java'
+//apply plugin: 'spring-boot'
 
 sourceCompatibility = 1.8
 
@@ -10,7 +28,16 @@ repositories {
 }
 
 dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    //View:use to create html page
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf:1.5.4.RELEASE")
+    //View:use with thymeleaf to be able use html tag thymeleaf not support
+    compile("net.sourceforge.nekohtml:nekohtml:1.9.22")
+    //Model: use JPA
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    //Model: SQL via MySQL
+    compile("mysql:mysql-connector-java")
 }
 
 //edit build.gradle
