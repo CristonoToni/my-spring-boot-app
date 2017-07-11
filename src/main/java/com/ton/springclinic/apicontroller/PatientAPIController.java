@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import sun.misc.Request;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Ton-SSD on 7/10/2017.
@@ -17,12 +17,12 @@ import java.util.List;
 @RequestMapping("/api/patients")
 @Transactional(readOnly = false,
         rollbackFor = Exception.class,isolation = Isolation.READ_COMMITTED)
-public class PatientController {
-
+public class PatientAPIController {
+    private Logger logger = Logger.getLogger("PatientAPIController");
     private PatientRepository patientRepository;
 
     @Autowired  //auto assign value
-    public PatientController(PatientRepository patientRepository){
+    public PatientAPIController(PatientRepository patientRepository){
         this.patientRepository = patientRepository;
     }
 
@@ -41,7 +41,9 @@ public class PatientController {
 
     @RequestMapping(value = "/{patientId}",method = RequestMethod.GET)
     public Patient getPatient(@PathVariable int patientId){
-        return patientRepository.getPatient(patientId);
+        Patient patient = patientRepository.getPatient(patientId);
+        logger.info("Get a patient: " + patient.getFirstName() +" "+patient.getLastName());
+        return patient;
     }
 
     //PUT:update
